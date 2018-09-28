@@ -1,34 +1,53 @@
 <link  rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<form method="get" action="#" onclick="showTableData()">
-<table  class="table table-hover small-text" id="tb">
-<tr class="tr-header">
+<form method="get" action="#" id="toBeTranslatedForm", name="toBeTranslatedForm">
+
+<table  class="table table-hover small-text" id="tb" >
+<tr class="tr-header" >
 <th>Full Name</th>
 <th>Designation</th>
 <th>Mobile No.</th>
 <th>Email Id</th>
 <th><a href="javascript:void(0);" style="font-size:18px;" id="addMore" title="Add More Person"><span class="glyphicon glyphicon-plus"></span></a></th>
-<tr>
-<td><input type="text" name="fullname[]" class="form-control"></td>
-<td><select name="designation[]" class="form-control">
+<tr name="row[]">
+<td><input type="text" id = "textbox_0" name="fullname" class="form-control"></td>
+<td><select name="designation" class="form-control" id = "select_0">
   <option value="" selected>Select Designation</option>
     <option value="Engineer">Engineer</option>
     <option value="Accountant">Accountant</option>
 </select></td>
-<td><input type="text" name="mobileno[]" class="form-control"></td>
-<td><input type="text" name="emailid[]" class="form-control"></td>
-<td><a href='javascript:void(0);'  class='remove'><span class='glyphicon glyphicon-remove'></span></a></td>
+<td><input type="text" name="mobileno" class="form-control" id = "textbox2_0"></td>
+<td><input type="text" name="emailid" class="form-control" id = "textbox3_0"></td>
+<td><a href='javascript:void(0);'  class='remove'><span class='glyphicon glyphicon-remove'></span></a>
+<i class="icon-remove"></i>
+</td>
 </tr>
 </table>
-<input type="submit" value="submit" >
+<input type="submit" value="submit"  class="use-address">
 </form>
-
+<p id ="info"></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
 <script>
+var count = 1;
 $(function(){
-    $('#addMore').on('click', function() {
-              var data = $("#tb tr:eq(1)").clone(true).appendTo("#tb");
+	$('#addMore').on('click', function() {
+          /*    var data = $("#tb tr:eq(1)").clone(true).appendTo("#tb");
               data.find("input").val('');
+			 */
+
+$("#tb").append('<tr name="row[]">'
+				+ '<td><input type="text" id = "textbox_' + count + '" name="fullname" class="form-control"></td>'
+				+'<td><select name="designation" class="form-control" id = "select_'+count+'">'
+				+'<option value="" selected>Select Designation</option>'
+				+'<option value="Engineer">Engineer</option>'
+				+'<option value="Accountant">Accountant</option>'
+				+'</select></td>'
+				+'<td><input type="text" name="mobileno" class="form-control" id = "textbox2_'+count+'"></td>'
++'<td><input type="text" name="emailid" class="form-control" id = "textbox3_'+count+'"></td></tr>'
+			);
+				
+	count = count + 1;
+			  
      });
      $(document).on('click', '.remove', function() {
          var trIndex = $(this).closest("tr").index();
@@ -40,22 +59,89 @@ $(function(){
       });
 });      
 </script>
+
+<script>
+   var pj= [];
+   $(".use-address").click(function() {
+  
+  var myTab = document.getElementById('tb');
+  var len = myTab.rows.length;
+	alert(len);
+	
+	for(var i=0; i < len; i++){
+	pj[i] = [$("#textbox_" + i).val(),$("#select_" + i).val(), $("#textbox2_" + i).val(), $("#textbox3_" + i).val()];
+	}
+	
+	alert(pj);
+  
+  
+  /* 
+   var pj= [];
+   var value1="";var value2;
+   var MultiArray;var rt=[];
+		//alert(value1+"--"+value2)
+		  var myTab = document.getElementById('tb');
+		 
+		 for (i = 1; i < myTab.rows.length; i++) {
+		// multiArray = new Array()
+		
+		
+			var objCells = myTab.rows.item(i).cells;
+			alert("i=="+i);
+				for (var j = 0; j < objCells.length-2; j++) {
+			 alert("j=="+j);
+					  value1 = $(this).parent().parent().find("input:eq("+j+")").val();
+					//  value2 = $(this).parent().parent().find("input:eq(1)").val();
+			
+					rt.push(value1);
+			
+            }
+			alert("rt==="+rt);
+pj.push(rt);
+//rt=null;
+		}
+		alert(pj);
+	*/
+	/*	var table = $("table tbody");
+		var myTab = document.getElementById('tb');
+		alert(myTab.rows.length);
+var pj=[];
+//for (i = 1; i < myTab.rows.length; i++) {
+    table.find('tr').each(function (i) {
+        var $tds = $(this).find('td'),
+            productId = $(this).parent().parent().find("input:eq(0)").val(),
+            product = $(this).parent().parent().find("select:eq(0)").val(),
+            Quantity = $(this).parent().parent().find("input:eq(2)").val();
+        // do something with productId, product, Quantity
+       // alert('Row ' + (i + 1) + ':\nId: ' + productId
+         //     + '\nProduct: ' + product
+           //   + '\nQuantity: ' + Quantity);
+			  pj[i]=[productId,product,Quantity]
+    });
+	//}
+	alert(pj);*/
+});
+</script>
+
+
+
+
 <script>
     function showTableData() {
+	
+	 $('#toBeTranslatedForm').submit(function() {
         document.getElementById('info').innerHTML = "";
         var myTab = document.getElementById('tb');
-
         // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
         for (i = 1; i < myTab.rows.length; i++) {
-
             // GET THE CELLS COLLECTION OF THE CURRENT ROW.
             var objCells = myTab.rows.item(i).cells;
-
             // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
             for (var j = 0; j < objCells.length; j++) {
                 info.innerHTML = info.innerHTML + ' ' + objCells.item(j).innerHTML;
             }
-           // info.innerHTML = info.innerHTML + '<br />';     // ADD A BREAK (TAG).
+            info.innerHTML = info.innerHTML + '<br />';     // ADD A BREAK (TAG).
         }
+		 });
     }
 </script>
