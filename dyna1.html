@@ -3,19 +3,38 @@
 
 <table  class="table table-hover small-text" id="tb" >
 <tr class="tr-header" >
-<th>Full Name</th>
-<th>Designation</th>
-<th>Mobile No.</th>
-<th>Email Id</th>
+<th>Operator</th>
+<th>Cond1</th>
+<th>Cond2</th>
+<th>Operator</th>
+<th>Value</th>
 <th><a href="javascript:void(0);" style="font-size:18px;" id="addMore" title="Add More Person"><span class="glyphicon glyphicon-plus"></span></a></th>
 <tr name="row[]">
-<td><input type="text" id = "textbox_0" name="fullname" class="form-control"></td>
-<td><select name="designation" class="form-control" id = "select_0">
+<td><select name="designation" class="form-control" id = "select0_0" disabled>
+  <option value="" selected>Select Operator</option>
+    <option value="AND">AND</option>
+    <option value="OR">OR</option>
+</select></td>
+<td><select name="designation" class="form-control" id = "select21_0">
+  <option value="" selected>Select Designation</option>
+    <option value="kk">kk</option>
+    <option value="tt">tt</option>
+</select></td>
+
+<td><select name="designation" class="form-control" id = "select22_0">
+  <option value="" selected>Select Designation</option>
+    <option value="m1">m1</option>
+    <option value="m2">m2</option>
+</select></td>
+
+<!--<td><input type="text" id = "textbox_0" name="fullname" class="form-control"></td>
+<td><input type="text" name="mobileno" class="form-control" id = "textbox2_0"></td>-->
+<td><select name="designation" class="form-control" id = "select1_0">
   <option value="" selected>Select Designation</option>
     <option value="Engineer">Engineer</option>
     <option value="Accountant">Accountant</option>
 </select></td>
-<td><input type="text" name="mobileno" class="form-control" id = "textbox2_0"></td>
+
 <td><input type="text" name="emailid" class="form-control" id = "textbox3_0"></td>
 <td><a href='javascript:void(0);'  class='remove'><span class='glyphicon glyphicon-remove'></span></a>
 <i class="icon-remove"></i>
@@ -34,16 +53,28 @@ $(function(){
           /*    var data = $("#tb tr:eq(1)").clone(true).appendTo("#tb");
               data.find("input").val('');
 			 */
-
 $("#tb").append('<tr name="row[]">'
-				+ '<td><input type="text" id = "textbox_' + count + '" name="fullname" class="form-control"></td>'
-				+'<td><select name="designation" class="form-control" id = "select_'+count+'">'
+
++'<td><select name="designation" class="form-control" id = "select0_'+count+'" >'+
+  '<option value="" selected>Select Operator</option>'+
+   ' <option value="AND">AND</option>'+
+   ' <option value="OR">OR</option></select></td>'
+   +'   <td><select name="designation" class="form-control" id = "select21_'+count+'">   <option value="" selected>Select Designation</option>    <option value="kk">kk</option>    <option value="tt">tt</option></select></td>'+
+
+'<td><select name="designation" class="form-control" id = "select22_'+count+'">  <option value="" selected>Select Designation</option>    <option value="m1">m1</option>    <option value="m2">m2</option></select></td>  '
+   
+   
+ //  + '<td><input type="text" id = "textbox_' + count + '" name="fullname" class="form-control"></td>'
+  // +'<td><input type="text" name="emailid" class="form-control" id = "textbox2_'+count+'"></td>'
+   
++'<td><select name="designation" class="form-control" id = "select1_'+count+'">'		
 				+'<option value="" selected>Select Designation</option>'
 				+'<option value="Engineer">Engineer</option>'
 				+'<option value="Accountant">Accountant</option>'
 				+'</select></td>'
-				+'<td><input type="text" name="mobileno" class="form-control" id = "textbox2_'+count+'"></td>'
-+'<td><input type="text" name="emailid" class="form-control" id = "textbox3_'+count+'"></td></tr>'
++'<td><input type="text" name="mobileno" class="form-control" id = "textbox3_'+count+'"></td>'
++
+'<td><a href="javascript:void(0);"  class="remove"><span class="glyphicon glyphicon-remove"></span></a></tr>'
 			);
 				
 	count = count + 1;
@@ -69,8 +100,12 @@ $("#tb").append('<tr name="row[]">'
 	alert(len);
 	
 	for(var i=0; i < len; i++){
-	pj[i] = [$("#textbox_" + i).val(),$("#select_" + i).val(), $("#textbox2_" + i).val(), $("#textbox3_" + i).val()];
+	//pj[i] = [   $("#select0_" + i).val(),$("#textbox_" + i).val(),$("#textbox2_" + i).val(),$("#select1_" + i).val(), $("#textbox3_" + i).val()];
+	
+	pj[i] = [   $("#select0_" + i).val(),$("#select21_" + i).val(),$("#select22_" + i).val(),$("#select1_" + i).val(), $("#textbox3_" + i).val()];
 	}
+	
+	
 	
 	alert(pj);
   
@@ -127,7 +162,7 @@ var pj=[];
 
 
 <script>
-    function showTableData() {
+   /* function showTableData() {
 	
 	 $('#toBeTranslatedForm').submit(function() {
         document.getElementById('info').innerHTML = "";
@@ -143,5 +178,5 @@ var pj=[];
             info.innerHTML = info.innerHTML + '<br />';     // ADD A BREAK (TAG).
         }
 		 });
-    }
+    }*/
 </script>
